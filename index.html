@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2 id="monthTitle"></h2>
+
+<div class="top-bar">
+  <select id="monthSelect"></select>
+  <input type="text" id="taskInput" placeholder="Add new task">
+  <button onclick="addTask()">Add</button>
+</div>
+
+<div class="progress-container">
+  <div id="progressBar"></div>
+</div>
+<p id="progressText">Progress: 0%</p>
+
+<div class="tracker-wrapper">
+  <div class="tasks-column" id="tasksColumn"></div>
+  <div class="days-grid" id="daysGrid"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

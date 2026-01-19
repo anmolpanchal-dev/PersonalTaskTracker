@@ -1,0 +1,94 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background: #f8f9ff;
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+.top-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+input, select, button {
+  padding: 6px 10px;
+}
+
+button {
+  cursor: pointer;
+}
+
+.progress-container {
+  width: 100%;
+  height: 14px;
+  background: #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+#progressBar {
+  height: 100%;
+  width: 0%;
+  background: #7b8cff;
+  transition: width 0.3s;
+}
+
+.tracker-wrapper {
+  display: flex;
+  border: 1px solid #bbb;
+  overflow-x: auto;
+  background: white;
+}
+
+.tasks-column {
+  min-width: 160px;
+  border-right: 2px solid #000;
+  position: sticky;
+  left: 0;
+  background: #fff;
+  z-index: 2;
+}
+
+.task {
+  height: 34px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  border-bottom: 1px solid #eee;
+  font-weight: bold;
+}
+
+.days-grid {
+  display: grid;
+}
+
+.day-header {
+  height: 34px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid #000;
+}
+
+.day-cell {
+  height: 34px;
+  border-bottom: 1px solid #eee;
+  border-right: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.day-cell:hover {
+  background: #eef1ff;
+}
+
+input[type="radio"]:checked {
+  accent-color: #7b8cff;
+}
