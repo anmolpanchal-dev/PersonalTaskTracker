@@ -1,30 +1,115 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <h2 id="monthTitle"></h2>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monthly Habit & Task Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <svg style="display: none">
+      <defs>
+        <linearGradient id="circleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color: #48bb78; stop-opacity: 1" />
+          <stop offset="100%" style="stop-color: #38a169; stop-opacity: 1" />
+        </linearGradient>
+      </defs>
+    </svg>
+    <div class="container">
+      <!-- Header Section -->
+      <header class="header">
+        <div class="header-top">
+          <div class="title-section">
+            <h1>Monthly Tracker</h1>
+            <p class="subtitle" id="monthDisplay"></p>
+          </div>
+          <div class="controls">
+            <select id="monthSelect" class="month-selector"></select>
+          </div>
+        </div>
 
-<div class="top-bar">
-  <select id="monthSelect"></select>
-  <input type="text" id="taskInput" placeholder="Add new task">
-  <button onclick="addTask()">Add</button>
-</div>
+        <!-- Add Task Section -->
+        <div class="add-task-section">
+          <input
+            type="text"
+            id="taskInput"
+            class="task-input"
+            placeholder="Add a new task..."
+            autocomplete="off"
+          />
+          <button id="addTaskBtn" class="btn-add">+ Add Task</button>
+        </div>
+      </header>
 
-<div class="progress-container">
-  <div id="progressBar"></div>
-</div>
-<p id="progressText">Progress: 0%</p>
+      <!-- Main Tracker Grid -->
+      <main class="main-content">
+        <div class="tracker-wrapper">
+          <!-- Sticky Tasks Column -->
+          <div class="tasks-sidebar">
+            <div class="tasks-header">Tasks</div>
+            <div class="tasks-list" id="tasksList"></div>
+          </div>
 
-<div class="tracker-wrapper">
-  <div class="tasks-column" id="tasksColumn"></div>
-  <div class="days-grid" id="daysGrid"></div>
-</div>
+          <!-- Scrollable Days Grid -->
+          <div class="days-container">
+            <div class="days-grid" id="daysGrid"></div>
+          </div>
+        </div>
 
-<script src="script.js"></script>
-</body>
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState">
+          <p>No tasks yet. Add one to get started!</p>
+        </div>
+      </main>
+
+      <!-- Progress Section at Bottom -->
+      <div class="progress-section">
+        <div class="progress-charts">
+          <!-- Daily Progress Circle -->
+          <div class="progress-circle-container">
+            <div class="progress-circle">
+              <svg class="circle-svg" viewBox="0 0 120 120">
+                <circle class="circle-bg" cx="60" cy="60" r="50"></circle>
+                <circle
+                  class="circle-fill"
+                  id="dailyCircle"
+                  cx="60"
+                  cy="60"
+                  r="50"
+                ></circle>
+              </svg>
+              <div class="circle-label">
+                <span class="circle-percent" id="dailyPercent">0%</span>
+                <span class="circle-text">Today</span>
+              </div>
+            </div>
+            <p class="progress-info-text" id="dailyInfo">0 / 0 tasks</p>
+          </div>
+
+          <!-- Monthly Progress Circle -->
+          <div class="progress-circle-container">
+            <div class="progress-circle">
+              <svg class="circle-svg" viewBox="0 0 120 120">
+                <circle class="circle-bg" cx="60" cy="60" r="50"></circle>
+                <circle
+                  class="circle-fill"
+                  id="monthlyCircle"
+                  cx="60"
+                  cy="60"
+                  r="50"
+                ></circle>
+              </svg>
+              <div class="circle-label">
+                <span class="circle-percent" id="monthlyPercent">0%</span>
+                <span class="circle-text">Month</span>
+              </div>
+            </div>
+            <p class="progress-info-text" id="monthlyInfo">0 / 0 tasks</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
 </html>
