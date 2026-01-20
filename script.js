@@ -34,6 +34,9 @@ const DOM = {
   addTaskBtn: document.getElementById('addTaskBtn'),
   tasksList: document.getElementById('tasksList'),
   daysGrid: document.getElementById('daysGrid'),
+  dailyPercent: document.getElementById('dailyPercent'),
+  dailyInfo: document.getElementById('dailyInfo'),
+  dailyCircle: document.getElementById('dailyCircle'),
   monthlyPercent: document.getElementById('monthlyPercent'),
   monthlyInfo: document.getElementById('monthlyInfo'),
   monthlyCircle: document.getElementById('monthlyCircle'),
@@ -157,6 +160,11 @@ function calculateProgress() {
  */
 function updateProgress() {
   const progress = calculateProgress();
+
+  // Update daily progress circle
+  updateCircle(DOM.dailyCircle, progress.day.percentage);
+  DOM.dailyPercent.textContent = `${progress.day.percentage}%`;
+  DOM.dailyInfo.textContent = `${progress.day.completed} / ${progress.day.total} tasks`;
 
   // Update monthly progress circle
   updateCircle(DOM.monthlyCircle, progress.month.percentage);
@@ -475,4 +483,10 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init);
 } else {
   init();
+}
+
+
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
 }
