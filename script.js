@@ -34,9 +34,6 @@ const DOM = {
   addTaskBtn: document.getElementById('addTaskBtn'),
   tasksList: document.getElementById('tasksList'),
   daysGrid: document.getElementById('daysGrid'),
-  dailyPercent: document.getElementById('dailyPercent'),
-  dailyInfo: document.getElementById('dailyInfo'),
-  dailyCircle: document.getElementById('dailyCircle'),
   monthlyPercent: document.getElementById('monthlyPercent'),
   monthlyInfo: document.getElementById('monthlyInfo'),
   monthlyCircle: document.getElementById('monthlyCircle'),
@@ -112,39 +109,31 @@ function calculateProgress() {
   let dayCompletedTasks = 0;
   let dayTotalTasks = 0;
 
-  // Count all tasks for the month and today
-  state.tasks.forEach((_, taskIndex) => {
-    monthTotalTasks++;
+  // Calculate total tasks for the entire month (tasks × days)
+  monthTotalTasks = state.tasks.length * daysInMonth;
 
-    // Check if today's task is completed
-    if (isCurrentMonth && todayDay) {
-      dayTotalTasks++;
-      const todayKey = formatDateKey(todayDay, state.currentMonth, state.currentYear);
-      const taskCompletions = state.completions[todayKey] || [];
-      if (Array.isArray(taskCompletions) && taskCompletions.includes(taskIndex)) {
-        dayCompletedTasks++;
-      }
-    }
-  });
-
-  // Count all tasks completed in the month
+  // Count completed tasks and today's progress
   for (let day = 1; day <= daysInMonth; day++) {
-    state.tasks.forEach((_, taskIndex) => {
-      const dateKey = formatDateKey(day, state.currentMonth, state.currentYear);
-      const taskCompletions = state.completions[dateKey] || [];
-      if (Array.isArray(taskCompletions) && taskCompletions.includes(taskIndex)) {
-        monthCompletedTasks++;
-      }
-    });
+    const dateKey = formatDateKey(day, state.currentMonth, state.currentYear);
+    const taskCompletions = state.completions[dateKey] || [];
+
+    // Count completed tasks for this day
+    monthCompletedTasks += taskCompletions.length;
+
+    // Count today's stats if this is today
+    if (isCurrentMonth && day === todayDay) {
+      dayTotalTasks = state.tasks.length;
+      dayCompletedTasks = taskCompletions.length;
+    }
   }
 
-  const monthPercentage = monthTotalTasks > 0 ? Math.round((monthCompletedTasks / (monthTotalTasks * daysInMonth)) * 100) : 0;
+  const monthPercentage = monthTotalTasks > 0 ? Math.round((monthCompletedTasks / monthTotalTasks) * 100) : 0;
   const dayPercentage = dayTotalTasks > 0 ? Math.round((dayCompletedTasks / dayTotalTasks) * 100) : 0;
 
   return {
     month: {
       completed: monthCompletedTasks,
-      total: monthTotalTasks * daysInMonth,
+      total: monthTotalTasks,
       percentage: monthPercentage,
     },
     day: {
@@ -160,11 +149,6 @@ function calculateProgress() {
  */
 function updateProgress() {
   const progress = calculateProgress();
-
-  // Update daily progress circle
-  updateCircle(DOM.dailyCircle, progress.day.percentage);
-  DOM.dailyPercent.textContent = `${progress.day.percentage}%`;
-  DOM.dailyInfo.textContent = `${progress.day.completed} / ${progress.day.total} tasks`;
 
   // Update monthly progress circle
   updateCircle(DOM.monthlyCircle, progress.month.percentage);
@@ -484,6 +468,8 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
+
+
 
 
 
